@@ -1,1 +1,31 @@
-<p>home works!</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Ürün ismini giriniz</mat-label>
+                <input matInput type="text" [(ngModel)]="productName">
+                <button *ngIf="productName" matSuffix mat-icon-button aria-label="Clear" (click)="productName=''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <div class="row">
+                <div class="col-md-6 text-center col-lg-4 col-xxl-3 mt-5" min-width="200px"  *ngFor="let product of productList">
+                    <img [src]="product.imageUrl" width="200" height="200" style="border:1px solid #ccc">
+                    <h1 class="mt-3"><strong>{{product.name}}</strong></h1>
+                    <h2 class="text-danger"><strong>{{product.price | currency:'TRY':'symbol-narrow':'1.2-2'}}</strong></h2>
+                    <h1><strong>{{product.inventoryQuantity}}</strong></h1>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ürün Adeti</mat-label>
+                        <input matInput value="1" required min="1" autocomplete="off" type="number" class="text-center fs-5">
+                      </mat-form-field>
+                    <button mat-raised-button color="primary" style="width:100%">Ürünü Ekle</button>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+</div>
+
+<!-- style="background-color:yellow" -->
