@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductModel } from '../models/Product';
-import { ResponseModel } from './response';
+import { ResponseModel } from '../models/response';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +10,15 @@ import { ResponseModel } from './response';
 export class ProductService {
   products: ProductModel[] = [];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    @Inject('apiUrl') private apiUrl: string,
+    private httpClient: HttpClient
+  ) {}
 
-  getProducts():Observable<ResponseModel> {
-    const api = 'https://webapi.angulareducation.com/api/products/getlist';
-    return this.httpClient.get<ResponseModel>(api)
+  getProducts(): Observable<ResponseModel<ProductModel>> {
+    const api = this.apiUrl + 'products/getlist';
+    console.log('apiUrl', this.apiUrl);
+    console.log('api', api);
+    return this.httpClient.get<ResponseModel<ProductModel>>(api);
   }
 }

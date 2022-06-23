@@ -1,31 +1,79 @@
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <mat-form-field class="example-form-field" appearance="fill">
-                <mat-label>Ürün ismini giriniz</mat-label>
-                <input matInput type="text" [(ngModel)]="productName">
-                <button *ngIf="productName" matSuffix mat-icon-button aria-label="Clear" (click)="productName=''">
-                    <mat-icon>close</mat-icon>
-                </button>
+  <div class="row">
+    <div class="col-md-8">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Ürün ismini giriniz</mat-label>
+        <input matInput type="text" [(ngModel)]="productName">
+        <button *ngIf="productName" matSuffix mat-icon-button aria-label="Clear" (click)="productName=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="row">
+        <div class="col-md-6 text-center col-lg-4 col-xxl-3 mt-5" min-width="200px" *ngFor="let product of productList">
+          <img [src]="product.imageUrl" width="200" height="200" style="border:1px solid #ccc">
+          <h1 class="mt-3"><strong>{{product.name}}</strong></h1>
+          <h2 class="text-danger"><strong>{{product.price | currency:'TRY':'symbol-narrow':'1.2-2'}}</strong></h2>
+          <mat-form-field class="example-full-width" appearance="standard">
+            <mat-label>Kalan Ürün Adedi</mat-label>
+            <input type="email" matInput [value]="product.inventoryQuantity" disabled class="text-center">
+          </mat-form-field>
+          <div *ngIf="product.inventoryQuantity>0">
+            <mat-form-field appearance="outline">
+              <mat-label>Ürün Adeti</mat-label>
+              <input matInput value="1" required min="1" autocomplete="off" type="number" class="text-center fs-5"
+                #inputQuantity>
             </mat-form-field>
-            <div class="row">
-                <div class="col-md-6 text-center col-lg-4 col-xxl-3 mt-5" min-width="200px"  *ngFor="let product of productList">
-                    <img [src]="product.imageUrl" width="200" height="200" style="border:1px solid #ccc">
-                    <h1 class="mt-3"><strong>{{product.name}}</strong></h1>
-                    <h2 class="text-danger"><strong>{{product.price | currency:'TRY':'symbol-narrow':'1.2-2'}}</strong></h2>
-                    <h1><strong>{{product.inventoryQuantity}}</strong></h1>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ürün Adeti</mat-label>
-                        <input matInput value="1" required min="1" autocomplete="off" type="number" class="text-center fs-5">
-                      </mat-form-field>
-                    <button mat-raised-button color="primary" style="width:100%">Ürünü Ekle</button>
-                </div>
-            </div> 
+            <button mat-raised-button color="primary" style="width:100%"
+              (click)="addBasket(product,inputQuantity)">Ürünü
+              Ekle</button>
+          </div>
         </div>
-        <div class="col-md-4">
-            
-        </div>
+      </div>
     </div>
-</div>
+    <div class="col-md-4">
+      <h1 class="text-success text-center"><strong>Sepetim</strong></h1>
+      <table mat-table [dataSource]="basketList" class="mat-elevation-z8">
 
-<!-- style="background-color:yellow" -->
+        <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Adet </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sum">
+          <th mat-header-cell *matHeaderCellDef> Toplam </th>
+          <td mat-cell *matCellDef="let element"> {{element.product.price*element.quantity | currency:'TRY':'symbol-narrow'}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="islemler">
+          <th mat-header-cell *matHeaderCellDef> Symbol </th>
+          <td mat-cell *matCellDef="let element"> 
+            <button class="btn btn-danger" (click)="deleteBasket(element)">Sil</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+
+
+    </div>
+  </div>
+</div>
