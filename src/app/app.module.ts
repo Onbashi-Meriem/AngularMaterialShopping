@@ -14,6 +14,9 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -21,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LayoutComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,10 +36,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     FormsModule,
     MatFormFieldModule,
-    HttpClientModule
-    
+    HttpClientModule,
+    MatTableModule,
+    MatSnackBarModule,
   ],
-  providers: [],
+  providers: [
+    {provide:'apiUrl', useValue:'https://webapi.angulareducation.com/api/'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
