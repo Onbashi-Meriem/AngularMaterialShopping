@@ -8,6 +8,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private basketService: BasketService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private spinner:NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -44,24 +46,30 @@ export class HomeComponent implements OnInit {
   }
 
   getProductList() {
+    this.spinner.show();
     this.productService.getProducts().subscribe((res) => {
       this.productList = res.data;
       console.log(res.data);
+      this.spinner.hide();
     });
   }
 
   getBasketList() {
+    this.spinner.show();
     this.basketService.getList().subscribe(
       (res) => {
         this.basketList = res.data;
+        this.spinner.hide();
       },
       (err) => {
         this.openSnackBar(err.message);
+        this.spinner.hide();
       }
     );
   }
 
   addBasket(product: ProductModel, inputQuantity: HTMLInputElement) {
+    this.spinner.show();
     const basket = new BasketModel();
     basket.quantity = parseInt(inputQuantity.value);
     basket.productId = product.id;
@@ -71,21 +79,26 @@ export class HomeComponent implements OnInit {
         this.openSnackBar(res.message);
         this.getBasketList();
         this.getProductList();
+        this.spinner.hide();
       },
       (err) => {
         this.openSnackBar(err.message);
+        this.spinner.hide();
       }
     );
   }
 
   deleteBasket(basket: BasketModel) {
+    this.spinner.show();
     this.basketService.deleteBasket(basket).subscribe(
       (res) => {
         this.openSnackBar(res.message);
         this.getBasketList();
+        this.spinner.hide();
       },
       (err) => {
         this.openSnackBar(err.message);
+        this.spinner.hide();
       }
     );
   }
