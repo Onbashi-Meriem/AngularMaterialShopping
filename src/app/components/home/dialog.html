@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Sil ?</h1>
+<div mat-dialog-content>
+    <p>Ürün: <b>{{data.product.name}}</b> , Adet : <b>{{data.quantity}}</b></p>
+    <p>Siparisinizi silmek istiyor musunuz?</p>
+</div>
+<div mat-dialog-actions class="justify-content-end">
+    <button mat-raised-button color="primary" (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+        Vazgec
+    </button>
+    <button mat-raised-button color="warn" cdkFocusInitial (click)="onClick(data)">
+        <mat-icon>delete</mat-icon>
+        Sil
+    </button>
+</div>
+
+<!-- (click)="delete(basket)" -->
+

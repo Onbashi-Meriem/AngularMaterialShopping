@@ -6,27 +6,23 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import { HomeComponent } from './components/home/home.component';
-import {MatInputModule} from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogOverviewExampleDialog, HomeComponent } from './components/home/home.component';
+import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
-import {MatTableModule} from '@angular/material/table';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { NgxSpinnerModule } from "ngx-spinner";
-
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    NavbarComponent,
-    HomeComponent,
-  ],
+  declarations: [AppComponent, LayoutComponent, NavbarComponent, HomeComponent, DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,10 +37,12 @@ import { NgxSpinnerModule } from "ngx-spinner";
     HttpClientModule,
     MatTableModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatDialogModule,
   ],
   providers: [
-    {provide:'apiUrl', useValue:'https://webapi.angulareducation.com/api/'}
+    { provide: 'apiUrl', useValue: 'https://webapi.angulareducation.com/api/' },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

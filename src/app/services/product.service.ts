@@ -17,8 +17,8 @@ export class ProductService {
 
   getProducts(): Observable<ResponseModel<ProductModel>> {
     const api = this.apiUrl + 'products/getlist';
-    console.log('apiUrl', this.apiUrl);
-    console.log('api', api);
+    // console.log('apiUrl', this.apiUrl);
+    // console.log('api', api);
     return this.httpClient.get<ResponseModel<ProductModel>>(api);
   }
 }
