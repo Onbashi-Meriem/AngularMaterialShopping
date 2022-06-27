@@ -29,4 +29,11 @@ export class BasketService {
 
     return this.httpClient.post<ResponseWithoutData>(api,basket)
   }
+
+  updateBasket(basket: BasketModel):Observable<ResponseWithoutData>{
+    const api=this.apiUrl+ 'baskets/update'
+
+    return this.httpClient.post<ResponseWithoutData>(api,basket)
+  }
+
 }

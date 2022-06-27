@@ -39,8 +39,6 @@ export class HomeComponent implements OnInit {
     this.getBasketList();
   }
 
-
-
   getProductList() {
     this.spinner.show();
     this.productService.getProducts().subscribe((res) => {
@@ -114,6 +112,35 @@ export class HomeComponent implements OnInit {
         this.spinner.hide();
       }
     );
+  }
+
+  updateBasket(basket:BasketModel,quantity:number){
+   
+    if(basket.quantity<1){
+      this.deleteBasket(basket)
+      return;
+    }
+    if(basket.product.inventoryQuantity-quantity<0){
+      this.snackBarService.openSnackBar('Sepete eklenecek ürün adeti, ürünün stok adedinden fazla olamaz')
+      return 
+    }
+
+    basket.quantity += quantity;
+  
+    this.spinner.show();
+    this.basketService.updateBasket(basket).subscribe(
+      (res) => {
+        this.snackBarService.openSnackBar(res.message);
+        this.getBasketList();
+        this.getProductList();
+        this.spinner.hide();
+      },
+      (err) => {
+        this.snackBarService.openSnackBar(err.message);
+        this.spinner.hide();
+      }
+    );
+
   }
 
   openDialog(basket: BasketModel): void {

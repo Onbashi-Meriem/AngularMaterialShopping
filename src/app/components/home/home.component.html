@@ -53,11 +53,11 @@
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef> Adet </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="accent">
-              <mat-icon>remove</mat-icon>
+            <button mat-icon-button color="accent" (click)="updateBasket(element,-1)">
+              <mat-icon >remove</mat-icon>
             </button>
             {{element.quantity}}
-            <button mat-icon-button color="primary">
+            <button mat-icon-button color="primary" (click)="updateBasket(element,1)">
               <mat-icon>add</mat-icon>
             </button>
           </td>
