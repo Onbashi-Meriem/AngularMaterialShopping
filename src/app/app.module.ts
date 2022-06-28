@@ -9,7 +9,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { DialogOverviewExampleDialog, HomeComponent } from './components/home/home.component';
+import {
+  DialogOverviewExampleDialog,
+  HomeComponent,
+  PaymentDialogComponent,
+} from './components/home/home.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,9 +24,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 
-
 @NgModule({
-  declarations: [AppComponent, LayoutComponent, NavbarComponent, HomeComponent, DialogOverviewExampleDialog],
+  declarations: [
+    AppComponent,
+    LayoutComponent,
+    NavbarComponent,
+    HomeComponent,
+    DialogOverviewExampleDialog,
+    PaymentDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

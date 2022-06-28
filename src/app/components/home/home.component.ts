@@ -143,10 +143,26 @@ export class HomeComponent implements OnInit {
 
   }
 
-  openDialog(basket: BasketModel): void {
+  openDeleteDialog(basket: BasketModel): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '50%',
       data: basket
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log('result',result)
+      if(result !==undefined){
+        console.log("delete",result)
+        this.deleteBasket(result)
+      }
+    });
+  }
+
+  openPaymentDialog(): void {
+    const dialogRef = this.dialog.open(PaymentDialogComponent, {
+      width: '50%',
+      data: this.total
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -165,7 +181,7 @@ export class HomeComponent implements OnInit {
 
 @Component({
   selector: 'dialog-overview-example-dialog',
-  templateUrl: './dialog.html',
+  templateUrl: './deleteDialog.html',
 })
 export class DialogOverviewExampleDialog {
   constructor(
@@ -178,5 +194,23 @@ export class DialogOverviewExampleDialog {
   }
   onClick(data:BasketModel){
     this.dialogRef.close(data);
+  }
+}
+
+@Component({
+  selector: 'dialog-payment-component',
+  templateUrl: './paymentDialog.html',
+})
+export class PaymentDialogComponent {
+  constructor(
+    public dialogRef: MatDialogRef<PaymentDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  onClick(){
+    this.dialogRef.close();
   }
 }

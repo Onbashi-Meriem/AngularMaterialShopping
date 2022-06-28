@@ -3,7 +3,7 @@
     <div class="col-md-8">
       <mat-form-field class="example-form-field" appearance="fill">
         <mat-label>Ürün ismini giriniz</mat-label>
-        <input matInput type="text" [(ngModel)]="productName">
+        <input matInput type="text" [(ngModel)]="productName" autocomplete="off">
         <button *ngIf="productName" matSuffix mat-icon-button aria-label="Clear" (click)="productName=''">
           <mat-icon>close</mat-icon>
         </button>
@@ -74,7 +74,7 @@
         <ng-container matColumnDef="islemler">
           <th mat-header-cell *matHeaderCellDef> Symbol </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="accent" (click)="openDialog(element)" >
+            <button mat-icon-button color="accent" (click)="openDeleteDialog(element)" >
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -90,7 +90,7 @@
       </mat-card>
       <hr>
     <div class="text-center">
-      <button mat-raised-button color="primary" >
+      <button mat-raised-button color="primary" (click)="openPaymentDialog()">
         <mat-icon>credit_card</mat-icon>
         Ödeme Yap 
       </button>
